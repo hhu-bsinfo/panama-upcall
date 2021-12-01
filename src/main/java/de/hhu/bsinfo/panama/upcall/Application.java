@@ -5,7 +5,7 @@ import jdk.incubator.foreign.ResourceScope;
 
 public class Application {
 
-    private static Addressable upcall = upcall_t.allocate(() -> {
+    private static final Addressable upcall = upcall_t.allocate(() -> {
         System.out.println("Hello from Java code!");
         throw new RuntimeException("Throwing an exception inside an upcall");
     }, ResourceScope.globalScope());
