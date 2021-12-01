@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.github.krakowski.jextract' version '0.2.2'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(18))
+    }
+}
+
+group 'de.hhu.bsinfo'
+version '0.1.0-SNAPSHOT'
+
+applicationName = 'panama-upcall'
+mainClassName = 'de.hhu.bsinfo.panama.upcall.Application'
+
+application.applicationDefaultJvmArgs += [ '--enable-native-access=ALL-UNNAMED' ]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+wrapper {
+    gradleVersion = '7.3'
+}
+
+jextract {
+    header("${project.projectDir}/src/main/native/upcall.h") {
+        libraries = ['upcall']
+        targetPackage = 'de.hhu.bsinfo.panama.upcall'
+        className = 'Upcall'
+        typedefs = [
+                'upcall_t'
+        ]
+        functions = [
+                'perform_upcall'
+        ]
+    }
+}
