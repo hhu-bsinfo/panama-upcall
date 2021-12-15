@@ -14,9 +14,9 @@ First, you need to build the native library:
  3. You should have the native library built as `libupcall.so` inside `src/main/native`. Change directory back into the project's root directory
 
 Now, you can build the Java project:
- 1. Make sure, you have a current version of JDK 18 with Project Panama installed on your system. You can always download the latest nightly build of the OpenJDK including Project Panama from [here](https://coconucos.cs.hhu.de/forschung/jdk/).
+ 1. Make sure, you have a current version of JDK 19 with Project Panama installed on your system. You can always download the latest nightly build of the OpenJDK including Project Panama from [here](https://coconucos.cs.hhu.de/forschung/jdk/).
  2. Edit `gradle.properties` inside the project's root directory and let `org.gradle.java.installations.paths` point to your Panama JDK.
- 3. Execute `./gradlew installDist`. For that, your default JDK must be any JDK with a version number lower than 18, since Gradle only supports being executed with Java versions up to and including 17. However, it can use the JDK pointed to inside your `gradle.properties` to build this project using Java 18.
+ 3. Execute `./gradlew installDist`. For that, your default JDK must be any JDK with a version number up to and including 17, since Gradle does not support building with newer versions of Java. However, it can use the JDK pointed to inside your `gradle.properties` to build this project using Java 19.
  4. You can now execute the application (change `JAVA_HOME` to your Panama JDK): `JAVA_HOME="/path/to/your/panama-jdk" LD_LIBRARY_PATH="$LD_LIBRARY_PATH:src/main/native" ./build/install/panama-upcall/bin/panama-upcall`
 
 ### Output
